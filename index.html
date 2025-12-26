@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cengir Pedia - Panduan Top Up</title>
+    <style>
+        :root {
+            --primary: #FF6B6B;          /* Pink cerah */
+            --secondary: #4ECDC4;        /* Turquoise cerah */
+            --accent: #FFD166;           /* Kuning cerah */
+            --accent-hover: #FFE699;
+            --success: #06D6A0;          /* Hijau mint */
+            --warning: #FF9E6D;          /* Oranye peach */
+            --info: #118AB2;             /* Biru cerah */
+            --text-dark: #2D3047;        /* Biru tua untuk teks */
+            --text-light: #5D5D7A;       /* Abu-abu muda untuk teks */
+            --bg-light: #F8F9FA;         /* Background sangat terang */
+            --card-bg: #FFFFFF;          /* Background card */
+            --shadow: rgba(0, 0, 0, 0.05);
+            --shadow-hover: rgba(0, 0, 0, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 0;
+            max-width: 100%;
+            margin: 0 auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Header Styles - Mobile Optimized */
+        header {
+            text-align: center;
+            margin-bottom: 0;
+            padding: 24px 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            transform: rotate(15deg);
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            padding: 8px 0;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+        
+        .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            font-weight: 300;
+            max-width: 100%;
+            margin: 0 auto 16px;
+            line-height: 1.5;
+            padding: 0 8px;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--info) 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 12px 0;
+            transition: all 0.25s;
+            box-shadow: 0 6px 16px rgba(78, 205, 196, 0.25);
+            text-decoration: none;
+            width: 90%;
+            max-width: 320px;
+        }
+        
+        .cta-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 8px rgba(78, 205, 196, 0.3);
+        }
+        
+        .cta-button i {
+            font-size: 1.2rem;
+        }
+        
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            white-space: nowrap;
+        }
+        
+        /* Main Container */
+        .container {
+            display: block;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        /* Guide Section - Mobile Friendly */
+        .guide-section {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            margin-bottom: 16px;
+        }
+        
+        .guide-section:active {
+            transform: translateY(2px);
+        }
+        
+        h2 {
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 1.5px;
+        }
+        
+        .step {
+            margin-bottom: 28px;
+            position: relative;
+            padding-left: 52px;
+            padding-top: 4px;
+        }
+        
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.25);
+        }
+        
+        h3 {
+            color: var(--info);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .code-box {
+            background-color: #f8f9fa;
+            border-left: 3px solid var(--secondary);
+            padding: 14px;
+            margin: 12px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            border-radius: 0 8px 8px 0;
+            color: var(--text-dark);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .example-box {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.08) 0%, rgba(17, 138, 178, 0.08) 100%);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 14px 0;
+            border: 1px solid rgba(78, 205, 196, 0.15);
+        }
+        
+        .note-box {
+            background: linear-gradient(135deg, rgba(255, 214, 102, 0.08) 0%, rgba(255, 158, 109, 0.08) 100%);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 14px 0;
+            border: 1px solid rgba(255, 214, 102, 0.15);
+        }
+        
+        /* Game Selection - Touch Friendly */
+        .game-section {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
+            margin: 0 16px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+        
+        @media (max-width: 360px) {
+            .game-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f0 100%);
+            border-radius: 12px;
+            padding: 16px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 90px;
+        }
+        
+        .game-card:active {
+            transform: scale(0.97);
+            background: linear-gradient(135deg, var(--primary) 0.1%, var(--warning) 100%);
+            color: white;
+        }
+        
+        .game-card.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            color: white;
+            box-shadow: 0 6px 14px rgba(255, 107, 107, 0.2);
+        }
+        
+        .game-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .game-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            line-height: 1.2;
+        }
+        
+        /* Simulation Section */
+        .simulation {
+            background-color: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
+            margin: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .simulation-box {
+            background-color: var(--bg-light);
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 16px;
+            text-align: center;
+        }
+        
+        .bot-message {
+            background: linear-gradient(135deg, rgba(17, 138, 178, 0.08) 0%, rgba(78, 205, 196, 0.08) 100%);
+            border-radius: 16px 16px 16px 0;
+            padding: 16px;
+            margin: 14px 0;
+            max-width: 90%;
+            text-align: left;
+            display: inline-block;
+            border: 1px solid rgba(17, 138, 178, 0.12);
+            font-size: 0.95rem;
+        }
+        
+        .qr-placeholder {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            border: 2px dashed var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .qr-placeholder::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.4) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(255, 255, 255, 0.4) 50%, transparent 51%);
+            background-size: 18px 18px;
+        }
+        
+        .qr-text {
+            position: absolute;
+            z-index: 1;
+            background: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--info);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            font-size: 0.9rem;
+        }
+        
+        .timer {
+            font-size: 1.6rem;
+            color: var(--primary);
+            font-weight: 800;
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, rgba(6, 214, 160, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
+            color: var(--text-dark);
+            padding: 18px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            border: 2px solid var(--success);
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid rgba(78, 205, 196, 0.25);
+            border-radius: 10px;
+            font-size: 1rem;
+            margin: 12px 0;
+            background-color: white;
+            transition: all 0.2s;
+            color: var(--text-dark);
+            -webkit-appearance: none;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(78, 205, 196, 0.15);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            color: white;
+            border: none;
+            padding: 16px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 8px 4px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 6px rgba(255, 107, 107, 0.25);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--text-light) 0%, var(--info) 100%);
+            box-shadow: 0 4px 12px rgba(93, 93, 122, 0.2);
+        }
+        
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 16px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(78, 205, 196, 0.15);
+            background-color: var(--card-bg);
+        }
+        
+        .step-list {
+            padding-left: 18px;
+            margin: 14px 0;
+        }
+        
+        .step-list li {
+            margin-bottom: 8px;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 8px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+        
+        .step-list li::before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            font-size: 1.3rem;
+            position: absolute;
+            left: -12px;
+            top: -3px;
+        }
+        
+        .highlight {
+            background-color: rgba(255, 214, 102, 0.25);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        
+        /* WhatsApp Floating Button - Mobile Optimized */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 16px;
+            z-index: 1000;
+        }
+        
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 50px;
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.25s;
+            font-size: 0.95rem;
+        }
+        
+        .whatsapp-button:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 3px 10px rgba(37, 211, 102, 0.3);
+        }
+        
+        .whatsapp-icon {
+            font-size: 1.4rem;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .simulation-title {
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .simulation-subtitle {
+            color: var(--text-light);
+            margin-bottom: 16px;
+            font-size: 0.95rem;
+        }
+        
+        .quick-action {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(78, 205, 196, 0.1);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--info) 100%);
+            color: white;
+            border: none;
+            padding: 14px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.2);
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .action-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 6px rgba(78, 205, 196, 0.25);
+        }
+        
+        /* Mobile-Specific Improvements */
+        .mobile-only {
+            display: block;
+        }
+        
+        .desktop-only {
+            display: none;
+        }
+        
+        /* Touch-friendly improvements */
+        button, 
+        .game-card,
+        .action-btn,
+        .btn {
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        /* Prevent zoom on input focus for iOS */
+        @supports (-webkit-touch-callout: none) {
+            input, textarea {
+                font-size: 16px !important;
+            }
+        }
+        
+        /* iOS momentum scrolling */
+        .scrollable {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Bottom safe area for iPhone X and newer */
+        @supports (padding: max(0px)) {
+            body, footer {
+                padding-bottom: max(16px, env(safe-area-inset-bottom));
+            }
+            
+            .whatsapp-float {
+                bottom: max(20px, env(safe-area-inset-bottom) + 10px);
+            }
+        }
+        
+        /* Loading optimization */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>CENGIR PEDIA</h1>
+            <p class="subtitle">Top Up Game, Pulsa & Token Listrik. Proses Cepat & Aman</p>
+            <a href="https://wa.me/6281234567890?text=GET" class="cta-button" id="topupButton" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                TOP UP SEKARANG
+            </a>
+            <div class="badge-container">
+                <div class="badge">⚡ Instan</div>
+                <div class="badge">🔒 Aman</div>
+                <div class="badge">🛡️ Garansi</div>
+                <div class="badge">⏰ 24/7</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="game-section">
+        <h2>Pilih Game/Layanan</h2>
+        <p>Klik game atau layanan yang ingin di-top up:</p>
+        
+        <div class="game-grid">
+            <div class="game-card" onclick="selectGame('ML')" data-code="ML">
+                <div class="game-icon">🎮</div>
+                <div class="game-name">Mobile Legends</div>
+            </div>
+            <div class="game-card" onclick="selectGame('FF')" data-code="FF">
+                <div class="game-icon">🔫</div>
+                <div class="game-name">Free Fire</div>
+            </div>
+            <div class="game-card" onclick="selectGame('PB')" data-code="PB">
+                <div class="game-icon">🎯</div>
+                <div class="game-name">Point Blank</div>
+            </div>
+            <div class="game-card" onclick="selectGame('VALO')" data-code="VALO">
+                <div class="game-icon">⚔️</div>
+                <div class="game-name">Valorant</div>
+            </div>
+            <div class="game-card" onclick="selectGame('PULSA')" data-code="PULSA">
+                <div class="game-icon">📱</div>
+                <div class="game-name">Pulsa</div>
+            </div>
+            <div class="game-card" onclick="selectGame('TOKEN')" data-code="TOKEN">
+                <div class="game-icon">⚡</div>
+                <div class="game-name">Token Listrik</div>
+            </div>
+            <div class="game-card" onclick="selectGame('DATA')" data-code="DATA">
+                <div class="game-icon">📶</div>
+                <div class="game-name">Paket Data</div>
+            </div>
+            <div class="game-card" onclick="selectGame('VOUCHER')" data-code="VOUCHER">
+                <div class="game-icon">🎫</div>
+                <div class="game-name">Voucher</div>
+            </div>
+            <div class="game-card" onclick="selectGame('LAINNYA')" data-code="LAINNYA">
+                <div class="game-icon">➕</div>
+                <div class="game-name">Lainnya</div>
+            </div>
+        </div>
+        
+        <div class="quick-action">
+            <p style="font-size: 0.95rem; margin-bottom: 12px;">Atau langsung hubungi kami:</p>
+            <div class="action-buttons">
+                <button class="action-btn" onclick="openWhatsApp('GET')">
+                    <i class="fab fa-whatsapp"></i> Mulai "GET"
+                </button>
+                <button class="action-btn" onclick="openWhatsApp('HELP')">
+                    <i class="fas fa-question"></i> Bantuan
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="guide-section">
+            <h2>Cara Top Up</h2>
+            
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Ketik GET di WA</h3>
+                <p>Hubungi bot Cengir Pedia di WhatsApp dan ketik <span class="highlight">GET</span></p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Pilih Layanan</h3>
+                <p>Ketik <span class="highlight">GET [GAME]</span> sesuai pilihan.</p>
+                <div class="example-box">
+                    <p><strong>Contoh:</strong></p>
+                    <div class="code-box">GET ML</div>
+                    <div class="code-box">GET PULSA</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Pilih Nominal</h3>
+                <p>Pilih nominal yang tersedia. Setiap pilihan punya kode unik.</p>
+                <div class="note-box">
+                    <p><strong>Contoh untuk ML:</strong></p>
+                    <ul class="step-list">
+                        <li>86 Diamond (ML86)</li>
+                        <li>172 Diamond (ML172)</li>
+                        <li>257 Diamond (ML257)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="guide-section">
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Format Pembelian</h3>
+                <p>Gunakan format ini untuk beli:</p>
+                <div class="code-box">ID-KODE-BUY</div>
+                <p><strong>Contoh:</strong></p>
+                <div class="example-box">
+                    <p>ID Game: <span class="highlight">123456789</span></p>
+                    <p>Kode: <span class="highlight">ML172</span></p>
+                    <div class="code-box">123456789 ML172 BUY</div>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Bayar via QR Code</h3>
+                <p>Bot akan kirim QR Code untuk bayar. Selesaikan sebelum waktu habis.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3>Selesai & Cek Akun</h3>
+                <p>Diamond/layanan akan masuk otomatis dalam 1-3 menit.</p>
+                <div class="example-box">
+                    <p><strong>✅ Selesai!</strong></p>
+                    <p>Cek langsung di akun game Anda.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="simulation">
+        <h2>Coba Simulasi</h2>
+        <p class="simulation-subtitle">Pahami cara top up dengan simulasi:</p>
+        
+        <div class="simulation-box">
+            <div class="bot-message">
+                <p>Halo! Selamat datang di Cengir Pedia. Ketik <span class="highlight">GET</span> untuk mulai.</p>
+            </div>
+            
+            <input type="text" id="userInput" class="input-field" placeholder="Ketik di sini..." autocapitalize="characters">
+            
+            <div class="button-container">
+                <button class="btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i> Kirim
+                </button>
+                <button class="btn btn-secondary" onclick="resetSimulation()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+            </div>
+            
+            <div id="botResponse"></div>
+            
+            <div id="qrSection" style="display:none;">
+                <div class="bot-message">
+                    <p>Scan QR code untuk bayar Rp 40,000. Selesaikan dalam:</p>
+                    <div class="timer" id="timer">05:00</div>
+                </div>
+                
+                <div class="qr-placeholder">
+                    <div class="qr-text">QR Code Bayar</div>
+                </div>
+                
+                <div class="bot-message">
+                    <p>Diamond akan masuk otomatis dalam 1-3 menit setelah bayar.</p>
+                </div>
+                
+                <div class="button-container">
+                    <button class="btn" onclick="completePayment()">
+                        <i class="fas fa-check"></i> Bayar Berhasil
+                    </button>
+                    <button class="btn btn-whatsapp" onclick="openWhatsAppSimulation()">
+                        <i class="fab fa-whatsapp"></i> Lanjut WA
+                    </button>
+                </div>
+            </div>
+            
+            <div id="successMessage" class="success-message">
+                <p>✅ <strong>Berhasil!</strong> Diamond ML 172 sudah dikirim ke ID 123456.</p>
+                <p>Cek di akun game Anda. Terima kasih!</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Cengir Pedia</p>
+        <p style="margin: 8px 0;">WA: <strong>+62 812-3456-7890</strong></p>
+        <p style="font-size: 0.8rem; color: var(--text-light); opacity: 0.8;">Layanan 24 Jam • Proses Instan</p>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/6281234567890?text=GET" class="whatsapp-button" target="_blank" id="whatsappFloat">
+            <i class="fab fa-whatsapp whatsapp-icon"></i>
+            <span>Top Up</span>
+        </a>
+    </div>
+
+    <script>
+        // Optimized for mobile performance
+        let step = 0;
+        let selectedGame = "ML";
+        let timerInterval;
+        let timeLeft = 300;
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            selectGame('ML');
+            
+            // Add touch feedback to all buttons
+            document.querySelectorAll('button, .game-card, .action-btn').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.classList.add('active');
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.classList.remove('active');
+                });
+            });
+        });
+        
+        // Fungsi untuk memilih game
+        function selectGame(game) {
+            selectedGame = game;
+            
+            // Reset semua game card
+            document.querySelectorAll('.game-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            
+            // Aktifkan game yang dipilih
+            event.currentTarget.classList.add('active');
+            
+            // Update tombol WhatsApp
+            updateWhatsAppButton(game);
+            
+            // Haptic feedback (if supported)
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(10);
+            }
+        }
+        
+        // Update tombol WhatsApp
+        function updateWhatsAppButton(game) {
+            const gameNames = {
+                'ML': 'Mobile Legends',
+                'FF': 'Free Fire', 
+                'PB': 'Point Blank',
+                'VALO': 'Valorant',
+                'PULSA': 'Pulsa',
+                'TOKEN': 'Token Listrik',
+                'DATA': 'Paket Data',
+                'VOUCHER': 'Voucher',
+                'LAINNYA': 'Layanan Lain'
+            };
+            
+            const gameName = gameNames[game] || 'Layanan';
+            const topupButton = document.getElementById('topupButton');
+            const whatsappFloat = document.getElementById('whatsappFloat');
+            
+            if (topupButton) {
+                topupButton.innerHTML = `<i class="fab fa-whatsapp"></i> TOP UP ${gameName.toUpperCase()}`;
+                topupButton.href = `https://wa.me/6281234567890?text=GET ${game}`;
+            }
+            
+            if (whatsappFloat) {
+                whatsappFloat.innerHTML = `<i class="fab fa-whatsapp whatsapp-icon"></i><span>${gameName}</span>`;
+                whatsappFloat.href = `https://wa.me/6281234567890?text=GET ${game}`;
+            }
+        }
+        
+        // Buka WhatsApp dengan pesan
+        function openWhatsApp(message) {
+            let text = '';
+            
+            switch(message) {
+                case 'GET':
+                    text = 'GET';
+                    break;
+                case 'HELP':
+                    text = 'Halo, butuh bantuan top up';
+                    break;
+                default:
+                    text = message;
+            }
+            
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            
+            // Haptic feedback
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(20);
+            }
+        }
+        
+        // Buka WhatsApp dari simulasi
+        function openWhatsAppSimulation() {
+            const userInput = document.getElementById('userInput').value.trim().toUpperCase();
+            let text = 'GET';
+            
+            if (userInput && userInput !== 'GET') {
+                if (userInput.startsWith('GET ')) {
+                    text = userInput;
+                } else if (userInput.includes('BUY')) {
+                    text = userInput;
+                }
+            } else if (selectedGame) {
+                text = `GET ${selectedGame}`;
+            }
+            
+            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            
+            // Haptic feedback
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(20);
+            }
+        }
+        
+        // Fungsi simulasi chat
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value.trim().toUpperCase();
+            const botResponse = document.getElementById('botResponse');
+            
+            if (!userInput) return;
+            
+            // Haptic feedback
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(10);
+            }
+            
+            if (step === 0 && userInput === "GET") {
+                botResponse.innerHTML = `
+                    <div class="bot-message">
+                        <p>Pilih layanan:</p>
+                        <ul class="step-list">
+                            <li>Mobile Legends: <span class="highlight">GET ML</span></li>
+                            <li>Free Fire: <span class="highlight">GET FF</span></li>
+                            <li>Pulsa: <span class="highlight">GET PULSA</span></li>
+                            <li>Token Listrik: <span class="highlight">GET TOKEN</span></li>
+                        </ul>
+                    </div>
+                `;
+                step = 1;
+            } else if (step === 1 && userInput.startsWith("GET ")) {
+                const service = userInput.substring(4);
+                
+                if (service === "ML") {
+                    botResponse.innerHTML = `
+                        <div class="bot-message">
+                            <p>Pilihan Diamond ML:</p>
+                            <ul class="step-list">
+                                <li>86 Diamond - Rp 20,000 (ML86)</li>
+                                <li>172 Diamond - Rp 40,000 (ML172)</li>
+                                <li>257 Diamond - Rp 60,000 (ML257)</li>
+                            </ul>
+                            <p>Format: <span class="highlight">ID-KODE-BUY</span></p>
+                            <p>Contoh: <span class="highlight">123456 ML172 BUY</span></p>
+                        </div>
+                    `;
+                    step = 2;
+                } else {
+                    botResponse.innerHTML = `
+                        <div class="bot-message">
+                            <p>Layanan <span class="highlight">${service}</span> tersedia.</p>
+                            <p>Format: <span class="highlight">ID-KODE-BUY</span></p>
+                            <p>Contoh: <span class="highlight">123456 ${service}100 BUY</span></p>
+                        </div>
+                    `;
+                    step = 2;
+                }
+            } else if (step === 2 && userInput.includes("BUY")) {
+                const parts = userInput.split(" ");
+                if (parts.length === 3) {
+                    const id = parts[0];
+                    const code = parts[1];
+                    
+                    botResponse.innerHTML = `
+                        <div class="bot-message">
+                            <p>✅ Permintaan diterima!</p>
+                            <p>ID: <span class="highlight">${id}</span></p>
+                            <p>Kode: <span class="highlight">${code}</span></p>
+                            <p>Memproses pembayaran...</p>
+                        </div>
+                    `;
+                    
+                    // Tampilkan QR code setelah jeda
+                    setTimeout(() => {
+                        document.getElementById('qrSection').style.display = 'block';
+                        startTimer();
+                        // Scroll ke QR code
+                        document.getElementById('qrSection').scrollIntoView({behavior: 'smooth', block: 'center'});
+                    }, 800);
+                    
+                    step = 3;
+                } else {
+                    botResponse.innerHTML = `
+                        <div class="bot-message">
+                            <p>Format salah. Gunakan: <span class="highlight">ID-KODE-BUY</span></p>
+                            <p>Contoh: <span class="highlight">123456 ML172 BUY</span></p>
+                        </div>
+                    `;
+                }
+            } else {
+                botResponse.innerHTML = `
+                    <div class="bot-message">
+                        <p>Ketik <span class="highlight">GET</span> untuk mulai.</p>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('userInput').value = '';
+            // Scroll ke respons bot
+            setTimeout(() => {
+                botResponse.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+            }, 100);
+        }
+        
+        function startTimer() {
+            const timerElement = document.getElementById('timer');
+            
+            timerInterval = setInterval(() => {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 60 && timeLeft > 30) {
+                    timerElement.style.color = "var(--warning)";
+                } else if (timeLeft <= 30) {
+                    timerElement.style.color = "var(--primary)";
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = "00:00";
+                    timerElement.style.color = "var(--primary)";
+                    
+                    setTimeout(() => {
+                        alert("Waktu pembayaran habis. Silakan ulangi.");
+                        resetSimulation();
+                    }, 500);
+                } else {
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+        
+        function completePayment() {
+            clearInterval(timerInterval);
+            document.getElementById('qrSection').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Haptic feedback
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate([50, 50, 50]);
+            }
+            
+            // Scroll ke pesan sukses
+            setTimeout(() => {
+                document.getElementById('successMessage').scrollIntoView({behavior: 'smooth', block: 'center'});
+            }, 100);
+        }
+        
+        function resetSimulation() {
+            step = 0;
+            timeLeft = 300;
+            clearInterval(timerInterval);
+            
+            document.getElementById('userInput').value = '';
+            document.getElementById('botResponse').innerHTML = '';
+            document.getElementById('qrSection').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            
+            // Haptic feedback
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate(10);
+            }
+        }
+        
+        // Enter key support
+        document.getElementById('userInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+                e.preventDefault();
+            }
+        });
+        
+        // Touch optimization for input
+        document.getElementById('userInput').addEventListener('touchstart', function() {
+            this.focus();
+        });
+        
+        // Close keyboard on scroll (iOS optimization)
+        let scrollTimer;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimer);
+            scrollTimer = setTimeout(function() {
+                document.activeElement.blur();
+            }, 100);
+        });
+        
+        // Prevent double tap zoom
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
