@@ -2,162 +2,346 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="shortcut icon" href="https://e7.pngegg.com/pngimages/724/306/png-clipart-c-logo-c-programming-language-icon-letter-c-blue-logo.png" />
-    <title>Cengir Pedia - Panduan Top Up</title>
+    <title>Cengir Pedia - Top Up Game & Pulsa</title>
+    
     <style>
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .loader-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid transparent;
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loader-circle:nth-child(2) {
+            border: 3px solid transparent;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.7);
+            animation: spinReverse 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes spinReverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+        
+        .loading-text {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+        }
+        
+        .loading-subtext {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        /* Root variables */
         :root {
-            --primary: #FF6B6B;          /* Pink cerah */
-            --secondary: #4ECDC4;        /* Turquoise cerah */
-            --accent: #FFD166;           /* Kuning cerah */
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFD166;
             --accent-hover: #FFE699;
-            --success: #06D6A0;          /* Hijau mint */
-            --warning: #FF9E6D;          /* Oranye peach */
-            --info: #118AB2;             /* Biru cerah */
-            --text-dark: #2D3047;        /* Biru tua untuk teks */
-            --text-light: #5D5D7A;       /* Abu-abu muda untuk teks */
-            --bg-light: #F8F9FA;         /* Background sangat terang */
-            --card-bg: #FFFFFF;          /* Background card */
+            --success: #06D6A0;
+            --warning: #FF9E6D;
+            --info: #118AB2;
+            --text-dark: #2D3047;
+            --text-light: #5D5D7A;
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
             --shadow: rgba(0, 0, 0, 0.05);
             --shadow-hover: rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
         
         body {
             background-color: var(--bg-light);
             color: var(--text-dark);
-            line-height: 1.6;
+            line-height: 1.5;
             padding: 0;
-            max-width: 100%;
+            max-width: 100vw;
             margin: 0 auto;
             min-height: 100vh;
+            min-height: -webkit-fill-available;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            font-size: 14px;
         }
         
-        /* Header Styles - Mobile Optimized */
+        html {
+            height: -webkit-fill-available;
+        }
+        
+        /* Mobile Optimized Header with Shooting Stars */
         header {
             text-align: center;
             margin-bottom: 0;
-            padding: 24px 16px;
+            padding: 20px 15px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
             color: white;
             position: relative;
             overflow: hidden;
-            border-radius: 0 0 24px 24px;
-            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.15);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+            min-height: 200px;
         }
         
-        header::before {
-            content: '';
+        /* Shooting Stars Container */
+        .stars-container {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 24px 24px;
-            transform: rotate(15deg);
-            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: shootingStar linear infinite;
+        }
+        
+        @keyframes shootingStar {
+            0% {
+                transform: translateY(-100px) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         .header-content {
             position: relative;
-            z-index: 1;
-            padding: 8px 0;
+            z-index: 2;
+            padding: 5px 0;
         }
         
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.7rem;
             margin-bottom: 8px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
             font-weight: 800;
             letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;
+        }
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            opacity: 0.7;
         }
         
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             opacity: 0.95;
             font-weight: 300;
             max-width: 100%;
-            margin: 0 auto 16px;
-            line-height: 1.5;
-            padding: 0 8px;
+            margin: 0 auto 15px;
+            line-height: 1.4;
+            padding: 0 10px;
         }
         
         .cta-button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--info) 100%);
             color: white;
             border: none;
-            padding: 16px 24px;
+            padding: 16px 20px;
             border-radius: 14px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            margin: 12px 0;
-            transition: all 0.25s;
-            box-shadow: 0 6px 16px rgba(78, 205, 196, 0.25);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 10px 0;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 15px rgba(78, 205, 196, 0.3);
             text-decoration: none;
             width: 90%;
-            max-width: 320px;
+            max-width: 300px;
+            position: relative;
+            overflow: hidden;
         }
         
         .cta-button:active {
-            transform: translateY(2px);
-            box-shadow: 0 3px 8px rgba(78, 205, 196, 0.3);
-        }
-        
-        .cta-button i {
-            font-size: 1.2rem;
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 3px 8px rgba(78, 205, 196, 0.25);
         }
         
         .badge-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 16px;
+            gap: 8px;
+            margin-top: 15px;
             flex-wrap: wrap;
+            padding: 0 5px;
         }
         
         .badge {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             color: white;
             padding: 6px 12px;
-            border-radius: 16px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             white-space: nowrap;
+            backdrop-filter: blur(5px);
         }
         
         /* Main Container */
         .container {
             display: block;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
         
-        /* Guide Section - Mobile Friendly */
+        /* Game Section - Mobile Optimized */
+        .game-section {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: var(--shadow-card);
+            margin: 0 12px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+        
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 320px) {
+            .game-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f0 100%);
+            border-radius: 12px;
+            padding: 15px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 85px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .game-card:active {
+            transform: scale(0.96);
+            background: linear-gradient(135deg, var(--primary) 0.1%, var(--warning) 100%);
+            color: white;
+        }
+        
+        .game-card.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+        }
+        
+        .game-icon {
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+        }
+        
+        .game-name {
+            font-weight: 600;
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+        
+        /* Guide Section */
         .guide-section {
             background-color: var(--card-bg);
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 4px 12px var(--shadow);
-            transition: all 0.2s ease;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.15s ease;
             border: 1px solid rgba(0, 0, 0, 0.03);
-            margin-bottom: 16px;
+            margin-bottom: 15px;
         }
         
         .guide-section:active {
@@ -166,11 +350,11 @@
         
         h2 {
             color: var(--text-dark);
-            margin-bottom: 20px;
-            font-size: 1.4rem;
+            margin-bottom: 18px;
+            font-size: 1.3rem;
             font-weight: 700;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
         
         h2::after {
@@ -178,25 +362,25 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 50px;
+            width: 40px;
             height: 3px;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 1.5px;
         }
         
         .step {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
             position: relative;
-            padding-left: 52px;
-            padding-top: 4px;
+            padding-left: 50px;
+            padding-top: 2px;
         }
         
         .step-number {
             position: absolute;
             left: 0;
             top: 0;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
             color: white;
             border-radius: 50%;
@@ -204,154 +388,94 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             box-shadow: 0 4px 10px rgba(255, 107, 107, 0.25);
         }
         
         h3 {
             color: var(--info);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            margin-bottom: 6px;
+            font-size: 1rem;
             font-weight: 600;
         }
         
         p {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--text-light);
-            line-height: 1.6;
-            font-size: 0.95rem;
+            line-height: 1.5;
+            font-size: 0.9rem;
         }
         
         .code-box {
             background-color: #f8f9fa;
             border-left: 3px solid var(--secondary);
-            padding: 14px;
-            margin: 12px 0;
+            padding: 12px;
+            margin: 10px 0;
             font-family: 'Courier New', monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             border-radius: 0 8px 8px 0;
             color: var(--text-dark);
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            font-weight: 600;
         }
         
         .example-box {
             background: linear-gradient(135deg, rgba(78, 205, 196, 0.08) 0%, rgba(17, 138, 178, 0.08) 100%);
             border-radius: 10px;
-            padding: 16px;
-            margin: 14px 0;
+            padding: 14px;
+            margin: 12px 0;
             border: 1px solid rgba(78, 205, 196, 0.15);
         }
         
         .note-box {
             background: linear-gradient(135deg, rgba(255, 214, 102, 0.08) 0%, rgba(255, 158, 109, 0.08) 100%);
             border-radius: 10px;
-            padding: 16px;
-            margin: 14px 0;
+            padding: 14px;
+            margin: 12px 0;
             border: 1px solid rgba(255, 214, 102, 0.15);
-        }
-        
-        /* Game Selection - Touch Friendly */
-        .game-section {
-            background-color: var(--card-bg);
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 4px 12px var(--shadow);
-            margin: 0 16px 20px;
-            border: 1px solid rgba(0, 0, 0, 0.03);
-        }
-        
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: 16px;
-        }
-        
-        @media (max-width: 360px) {
-            .game-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        
-        .game-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f0 100%);
-            border-radius: 12px;
-            padding: 16px 10px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 2px solid transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 90px;
-        }
-        
-        .game-card:active {
-            transform: scale(0.97);
-            background: linear-gradient(135deg, var(--primary) 0.1%, var(--warning) 100%);
-            color: white;
-        }
-        
-        .game-card.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
-            color: white;
-            box-shadow: 0 6px 14px rgba(255, 107, 107, 0.2);
-        }
-        
-        .game-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-        
-        .game-name {
-            font-weight: 600;
-            font-size: 0.85rem;
-            line-height: 1.2;
         }
         
         /* Simulation Section */
         .simulation {
             background-color: var(--card-bg);
-            border-radius: 18px;
-            padding: 20px;
-            box-shadow: 0 4px 12px var(--shadow);
-            margin: 16px;
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: var(--shadow-card);
+            margin: 15px;
             border: 1px solid rgba(0, 0, 0, 0.03);
         }
         
         .simulation-box {
             background-color: var(--bg-light);
             border-radius: 14px;
-            padding: 20px;
-            margin-top: 16px;
+            padding: 18px;
+            margin-top: 15px;
             text-align: center;
         }
         
         .bot-message {
             background: linear-gradient(135deg, rgba(17, 138, 178, 0.08) 0%, rgba(78, 205, 196, 0.08) 100%);
-            border-radius: 16px 16px 16px 0;
-            padding: 16px;
-            margin: 14px 0;
+            border-radius: 14px 14px 14px 0;
+            padding: 14px;
+            margin: 12px 0;
             max-width: 90%;
             text-align: left;
             display: inline-block;
             border: 1px solid rgba(17, 138, 178, 0.12);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
         .qr-placeholder {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-            margin: 20px auto;
+            margin: 15px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 14px;
+            border-radius: 12px;
             border: 2px dashed var(--text-light);
             position: relative;
             overflow: hidden;
@@ -365,26 +489,26 @@
             background: 
                 linear-gradient(90deg, transparent 49%, rgba(255, 255, 255, 0.4) 50%, transparent 51%),
                 linear-gradient(0deg, transparent 49%, rgba(255, 255, 255, 0.4) 50%, transparent 51%);
-            background-size: 18px 18px;
+            background-size: 15px 15px;
         }
         
         .qr-text {
             position: absolute;
             z-index: 1;
             background: white;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             font-weight: 600;
             color: var(--info);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
         
         .timer {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: var(--primary);
             font-weight: 800;
-            margin: 16px 0;
+            margin: 12px 0;
             font-family: 'Courier New', monospace;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
@@ -392,26 +516,27 @@
         .success-message {
             background: linear-gradient(135deg, rgba(6, 214, 160, 0.1) 0%, rgba(78, 205, 196, 0.1) 100%);
             color: var(--text-dark);
-            padding: 18px;
-            border-radius: 12px;
-            margin-top: 20px;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 15px;
             display: none;
             border: 2px solid var(--success);
             text-align: left;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
         .input-field {
             width: 100%;
-            padding: 16px;
+            padding: 14px;
             border: 2px solid rgba(78, 205, 196, 0.25);
             border-radius: 10px;
-            font-size: 1rem;
-            margin: 12px 0;
+            font-size: 0.95rem;
+            margin: 10px 0;
             background-color: white;
             transition: all 0.2s;
             color: var(--text-dark);
             -webkit-appearance: none;
+            font-family: 'Courier New', monospace;
         }
         
         .input-field:focus {
@@ -424,16 +549,17 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--warning) 100%);
             color: white;
             border: none;
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            margin: 8px 4px;
+            margin: 6px 3px;
             transition: all 0.2s;
             box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
             flex: 1;
-            min-width: 120px;
+            min-width: 110px;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .btn:active {
@@ -455,33 +581,33 @@
         /* Footer */
         footer {
             text-align: center;
-            margin-top: 30px;
-            padding: 20px 16px;
+            margin-top: 25px;
+            padding: 20px 15px;
             color: var(--text-light);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-top: 1px solid rgba(78, 205, 196, 0.15);
             background-color: var(--card-bg);
         }
         
         .step-list {
-            padding-left: 18px;
-            margin: 14px 0;
+            padding-left: 16px;
+            margin: 12px 0;
         }
         
         .step-list li {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--text-light);
             position: relative;
-            padding-left: 8px;
-            line-height: 1.5;
-            font-size: 0.95rem;
+            padding-left: 6px;
+            line-height: 1.4;
+            font-size: 0.9rem;
         }
         
         .step-list li::before {
             content: "•";
             color: var(--secondary);
             font-weight: bold;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             position: absolute;
             left: -12px;
             top: -3px;
@@ -489,18 +615,18 @@
         
         .highlight {
             background-color: rgba(255, 214, 102, 0.25);
-            padding: 2px 6px;
+            padding: 2px 5px;
             border-radius: 4px;
             font-weight: 600;
             color: var(--text-dark);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
         
         /* WhatsApp Floating Button - Mobile Optimized */
         .whatsapp-float {
             position: fixed;
-            bottom: 20px;
-            right: 16px;
+            bottom: 15px;
+            right: 12px;
             z-index: 1000;
         }
         
@@ -508,75 +634,77 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border-radius: 50px;
             box-shadow: 0 6px 16px rgba(37, 211, 102, 0.25);
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.25s;
-            font-size: 0.95rem;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .whatsapp-button:active {
-            transform: translateY(2px) scale(0.98);
+            transform: translateY(2px) scale(0.95);
             box-shadow: 0 3px 10px rgba(37, 211, 102, 0.3);
         }
         
         .whatsapp-icon {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
         }
         
         .button-container {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 16px;
+            gap: 8px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
         
         .simulation-title {
             color: var(--text-dark);
-            margin-bottom: 8px;
-            font-size: 1.3rem;
+            margin-bottom: 6px;
+            font-size: 1.2rem;
             font-weight: 700;
         }
         
         .simulation-subtitle {
             color: var(--text-light);
-            margin-bottom: 16px;
-            font-size: 0.95rem;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
         }
         
         .quick-action {
-            margin-top: 24px;
-            padding-top: 20px;
+            margin-top: 20px;
+            padding-top: 18px;
             border-top: 1px solid rgba(78, 205, 196, 0.1);
         }
         
         .action-buttons {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-top: 16px;
+            margin-top: 15px;
         }
         
         .action-btn {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--info) 100%);
             color: white;
             border: none;
-            padding: 14px 18px;
+            padding: 12px 16px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             transition: all 0.2s;
             box-shadow: 0 4px 10px rgba(78, 205, 196, 0.2);
             flex: 1;
-            min-width: 100px;
+            min-width: 90px;
+            -webkit-tap-highlight-color: transparent;
         }
         
         .action-btn:active {
@@ -584,16 +712,40 @@
             box-shadow: 0 2px 6px rgba(78, 205, 196, 0.25);
         }
         
-        /* Mobile-Specific Improvements */
-        .mobile-only {
-            display: block;
+        /* Mobile-Specific Optimizations */
+        @media screen and (max-width: 380px) {
+            .game-grid {
+                gap: 8px;
+            }
+            
+            .game-card {
+                padding: 12px 6px;
+                min-height: 75px;
+            }
+            
+            .game-icon {
+                font-size: 1.6rem;
+            }
+            
+            .game-name {
+                font-size: 0.75rem;
+            }
+            
+            .cta-button {
+                padding: 14px 18px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
         }
         
-        .desktop-only {
-            display: none;
-        }
-        
-        /* Touch-friendly improvements */
+        /* Touch optimizations */
         button, 
         .game-card,
         .action-btn,
@@ -618,29 +770,66 @@
         /* Bottom safe area for iPhone X and newer */
         @supports (padding: max(0px)) {
             body, footer {
-                padding-bottom: max(16px, env(safe-area-inset-bottom));
+                padding-bottom: max(15px, env(safe-area-inset-bottom));
+            }
+            
+            header {
+                padding-top: max(20px, env(safe-area-inset-top));
             }
             
             .whatsapp-float {
-                bottom: max(20px, env(safe-area-inset-bottom) + 10px);
+                bottom: max(15px, env(safe-area-inset-bottom) + 10px);
+                right: max(12px, env(safe-area-inset-right));
             }
         }
         
-        /* Loading optimization */
-        .lazy-load {
-            opacity: 0;
-            transition: opacity 0.3s;
+        /* Hide scrollbar for better mobile experience */
+        ::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
         }
         
-        .lazy-load.loaded {
-            opacity: 1;
+        /* Prevent text selection */
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Allow text selection in input fields */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+        
+        /* Smooth transitions for mobile */
+        * {
+            transition: all 0.2s ease;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎮</text></svg>">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="loader-circle"></div>
+            <div class="loader-circle"></div>
+        </div>
+        <div class="loading-text">CENGIR PEDIA</div>
+        <div class="loading-subtext">Menyiapkan panduan top up...</div>
+    </div>
+    
     <header>
+        <!-- Shooting Stars Container -->
+        <div class="stars-container" id="starsContainer"></div>
+        
         <div class="header-content">
             <h1>CENGIR PEDIA</h1>
             <p class="subtitle">Top Up Game, Pulsa & Token Listrik. Proses Cepat & Aman</p>
@@ -701,7 +890,7 @@
         </div>
         
         <div class="quick-action">
-            <p style="font-size: 0.95rem; margin-bottom: 12px;">Atau langsung hubungi kami:</p>
+            <p style="font-size: 0.9rem; margin-bottom: 12px;">Atau langsung hubungi kami:</p>
             <div class="action-buttons">
                 <button class="action-btn" onclick="openWhatsApp('GET')">
                     <i class="fab fa-whatsapp"></i> Mulai "GET"
@@ -837,7 +1026,7 @@
     <footer>
         <p>© 2023 Cengir Pedia</p>
         <p style="margin: 8px 0;">WA: <strong>+62 812-3456-7890</strong></p>
-        <p style="font-size: 0.8rem; color: var(--text-light); opacity: 0.8;">Layanan 24 Jam • Proses Instan</p>
+        <p style="font-size: 0.75rem; color: var(--text-light); opacity: 0.8;">Layanan 24 Jam • Proses Instan</p>
     </footer>
 
     <!-- WhatsApp Floating Button -->
@@ -849,50 +1038,113 @@
     </div>
 
     <script>
-        // Optimized for mobile performance
+        // Shooting Stars Effect
+        function createShootingStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            const starCount = 15; // Reduced for mobile performance
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Random size (1-3px for mobile)
+                const size = Math.random() * 2 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Random position
+                star.style.left = `${Math.random() * 100}%`;
+                
+                // Random animation duration (2-4 seconds)
+                const duration = Math.random() * 2 + 2;
+                star.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                const delay = Math.random() * 3;
+                star.style.animationDelay = `${delay}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Initialize on page load
+        window.addEventListener('load', function() {
+            // Simulate loading
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.classList.add('hidden');
+                
+                // Enable body
+                document.body.style.opacity = '1';
+                
+                // Create shooting stars
+                createShootingStars();
+                
+                // Initialize game selection
+                selectGame('ML');
+                
+                // Add mobile-specific optimizations
+                if ('ontouchstart' in window) {
+                    // Disable double tap zoom
+                    let lastTouchEnd = 0;
+                    document.addEventListener('touchend', function(event) {
+                        const now = Date.now();
+                        if (now - lastTouchEnd <= 300) {
+                            event.preventDefault();
+                        }
+                        lastTouchEnd = now;
+                    }, false);
+                    
+                    // Prevent text selection on tap
+                    document.addEventListener('touchstart', function(e) {
+                        if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                            e.preventDefault();
+                        }
+                    }, { passive: false });
+                }
+                
+                // Add haptic feedback for mobile
+                document.querySelectorAll('button, .game-card').forEach(element => {
+                    element.addEventListener('touchstart', function() {
+                        if (window.navigator.vibrate) {
+                            window.navigator.vibrate(10);
+                        }
+                        this.classList.add('active');
+                    });
+                    
+                    element.addEventListener('touchend', function() {
+                        this.classList.remove('active');
+                    });
+                });
+                
+            }, 1200); // Shorter loading time for mobile
+        });
+        
+        // Game selection and other functions
         let step = 0;
         let selectedGame = "ML";
         let timerInterval;
         let timeLeft = 300;
         
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            selectGame('ML');
-            
-            // Add touch feedback to all buttons
-            document.querySelectorAll('button, .game-card, .action-btn').forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.classList.add('active');
-                });
-                
-                element.addEventListener('touchend', function() {
-                    this.classList.remove('active');
-                });
-            });
-        });
-        
-        // Fungsi untuk memilih game
         function selectGame(game) {
             selectedGame = game;
             
-            // Reset semua game card
+            // Update visual selection
             document.querySelectorAll('.game-card').forEach(card => {
                 card.classList.remove('active');
             });
             
-            // Aktifkan game yang dipilih
             event.currentTarget.classList.add('active');
             
-            // Update tombol WhatsApp
+            // Update WhatsApp buttons
             updateWhatsAppButton(game);
             
-            // Haptic feedback (if supported)
+            // Haptic feedback for mobile
             if (window.navigator.vibrate) {
-                window.navigator.vibrate(10);
+                window.navigator.vibrate(20);
             }
         }
         
-        // Update tombol WhatsApp
         function updateWhatsAppButton(game) {
             const gameNames = {
                 'ML': 'Mobile Legends',
@@ -921,7 +1173,6 @@
             }
         }
         
-        // Buka WhatsApp dengan pesan
         function openWhatsApp(message) {
             let text = '';
             
@@ -936,15 +1187,15 @@
                     text = message;
             }
             
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            // Open WhatsApp with proper mobile handling
+            window.location.href = `https://wa.me/6281234567890?text=${encodeURIComponent(text)}`;
             
             // Haptic feedback
             if (window.navigator.vibrate) {
-                window.navigator.vibrate(20);
+                window.navigator.vibrate(30);
             }
         }
         
-        // Buka WhatsApp dari simulasi
         function openWhatsAppSimulation() {
             const userInput = document.getElementById('userInput').value.trim().toUpperCase();
             let text = 'GET';
@@ -959,15 +1210,13 @@
                 text = `GET ${selectedGame}`;
             }
             
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(text)}`, '_blank');
+            window.location.href = `https://wa.me/6281234567890?text=${encodeURIComponent(text)}`;
             
-            // Haptic feedback
             if (window.navigator.vibrate) {
-                window.navigator.vibrate(20);
+                window.navigator.vibrate(30);
             }
         }
         
-        // Fungsi simulasi chat
         function sendMessage() {
             const userInput = document.getElementById('userInput').value.trim().toUpperCase();
             const botResponse = document.getElementById('botResponse');
@@ -976,7 +1225,7 @@
             
             // Haptic feedback
             if (window.navigator.vibrate) {
-                window.navigator.vibrate(10);
+                window.navigator.vibrate(15);
             }
             
             if (step === 0 && userInput === "GET") {
@@ -1034,11 +1283,10 @@
                         </div>
                     `;
                     
-                    // Tampilkan QR code setelah jeda
                     setTimeout(() => {
                         document.getElementById('qrSection').style.display = 'block';
                         startTimer();
-                        // Scroll ke QR code
+                        // Smooth scroll to QR section
                         document.getElementById('qrSection').scrollIntoView({behavior: 'smooth', block: 'center'});
                     }, 800);
                     
@@ -1060,8 +1308,10 @@
             }
             
             document.getElementById('userInput').value = '';
-            // Scroll ke respons bot
+            
+            // Auto-focus on input after sending
             setTimeout(() => {
+                document.getElementById('userInput').focus();
                 botResponse.scrollIntoView({behavior: 'smooth', block: 'nearest'});
             }, 100);
         }
@@ -1106,7 +1356,7 @@
                 window.navigator.vibrate([50, 50, 50]);
             }
             
-            // Scroll ke pesan sukses
+            // Scroll to success message
             setTimeout(() => {
                 document.getElementById('successMessage').scrollIntoView({behavior: 'smooth', block: 'center'});
             }, 100);
@@ -1124,7 +1374,7 @@
             
             // Haptic feedback
             if (window.navigator.vibrate) {
-                window.navigator.vibrate(10);
+                window.navigator.vibrate(15);
             }
         }
         
@@ -1136,30 +1386,31 @@
             }
         });
         
-        // Touch optimization for input
-        document.getElementById('userInput').addEventListener('touchstart', function() {
-            this.focus();
+        // Mobile keyboard handling
+        document.getElementById('userInput').addEventListener('focus', function() {
+            setTimeout(() => {
+                this.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
         });
         
-        // Close keyboard on scroll (iOS optimization)
-        let scrollTimer;
-        window.addEventListener('scroll', function() {
-            clearTimeout(scrollTimer);
-            scrollTimer = setTimeout(function() {
-                document.activeElement.blur();
+        // Handle orientation change for mobile
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                window.scrollTo(0, 0);
             }, 100);
         });
         
-        // Prevent double tap zoom
-        let lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            const now = (new Date()).getTime();
-            if (now - lastTouchEnd <= 300) {
-                event.preventDefault();
+        // Prevent pull-to-refresh on mobile
+        document.addEventListener('touchmove', function(e) {
+            if (e.touches.length !== 1) return;
+            
+            const touchY = e.touches[0].clientY;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop <= 0 && touchY > e.touches[0].clientY) {
+                e.preventDefault();
             }
-            lastTouchEnd = now;
-        }, false);
+        }, { passive: false });
     </script>
 </body>
-
 </html>
